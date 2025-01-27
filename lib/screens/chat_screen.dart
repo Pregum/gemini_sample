@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../models/chat_message.dart';
 import '../providers/chat_provider.dart';
@@ -28,26 +29,27 @@ class ChatScreen extends HookConsumerWidget {
       if (text.trim().isEmpty) return;
 
       textController.clear();
-      
+
       // ユーザーメッセージを追加
       ref.read(chatMessagesProvider.notifier).addMessage(
-        ChatMessage(text: text, isUser: true),
-      );
-      
+            ChatMessage(text: text, isUser: true),
+          );
+
       // ローディング状態を設定
       ref.read(loadingStateProvider.notifier).setLoading(true);
 
       try {
         // ChatServiceを使用してレスポンスを生成
-        final response = await ref.read(chatServiceProvider.notifier).generateResponse(text);
-        
+        final response =
+            await ref.read(chatServiceProvider.notifier).generateResponse(text);
+
         // AIの応答を追加
         ref.read(chatMessagesProvider.notifier).addMessage(
-          ChatMessage(
-            text: response,
-            isUser: false,
-          ),
-        );
+              ChatMessage(
+                text: response,
+                isUser: false,
+              ),
+            );
       } finally {
         // ローディング状態を解除
         ref.read(loadingStateProvider.notifier).setLoading(false);
@@ -150,13 +152,14 @@ class ChatBubble extends StatelessWidget {
             ),
           ],
         ),
-        child: Text(
-          message.text,
-          style: TextStyle(
-            color: isUser
-                ? theme.colorScheme.onPrimary
-                : theme.colorScheme.onSecondaryContainer,
-            fontSize: 16.0,
+        child: MarkdownBody(
+          data: message.text,
+          styleSheet: MarkdownStyleSheet(
+            p: TextStyle(
+              color: isUser
+                  ? theme.colorScheme.onPrimary
+                  : theme.colorScheme.onSecondaryContainer,
+            ),
           ),
         ),
       ),
@@ -224,4 +227,4 @@ class ChatInputField extends StatelessWidget {
       ),
     );
   }
-} 
+}
