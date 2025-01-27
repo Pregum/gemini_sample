@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:gemini_sample/screens/chat_screen.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 Future<void> main() async {
   // .envファイルの読み込み
@@ -12,7 +14,8 @@ Future<void> main() async {
     apiKey: dotenv.env['GOOGLE_AI_STUDIO_API_KEY']!,
   );
 
-  runApp(const MyApp());
+  // runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -42,7 +45,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const ChatScreen(),
     );
   }
 }
