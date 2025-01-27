@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_generative_ai/google_generative_ai.dart';
 
-void main() {
+Future<void> main() async {
+  // .envファイルの読み込み
+  await dotenv.load();
+  
+  // GenerativeAIの初期化
+  final model = GenerativeModel(
+    model: 'gemini-pro',
+    apiKey: dotenv.env['GOOGLE_AI_STUDIO_API_KEY']!,
+  );
+
   runApp(const MyApp());
 }
 
