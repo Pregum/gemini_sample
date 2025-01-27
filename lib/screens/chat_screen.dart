@@ -39,22 +39,13 @@ class ChatScreen extends HookConsumerWidget {
       ref.read(loadingStateProvider.notifier).setLoading(true);
 
       try {
-        final model = ref.read(geminiModelProvider);
-        final content = [Content.text(text)];
-        final response = await model.generateContent(content);
+        // ChatServiceを使用してレスポンスを生成
+        final response = await ref.read(chatServiceProvider.notifier).generateResponse(text);
         
         // AIの応答を追加
         ref.read(chatMessagesProvider.notifier).addMessage(
           ChatMessage(
-            text: response.text ?? 'エラーが発生しました。',
-            isUser: false,
-          ),
-        );
-      } catch (e) {
-        // エラーメッセージを追加
-        ref.read(chatMessagesProvider.notifier).addMessage(
-          ChatMessage(
-            text: 'エラーが発生しました: $e',
+            text: response,
             isUser: false,
           ),
         );
