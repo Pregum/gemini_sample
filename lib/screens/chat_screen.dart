@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:google_generative_ai/google_generative_ai.dart';
 import '../models/chat_message.dart';
 import '../providers/chat_provider.dart';
 import '../providers/gemini_provider.dart';

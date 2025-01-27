@@ -1,11 +1,12 @@
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'api_key_provider.dart';
 
 part 'gemini_provider.g.dart';
 
 @riverpod
-GenerativeModel geminiModel(GeminiModelRef ref) {
+GenerativeModel geminiModel(Ref ref) {
   final apiKey = ref.watch(apiKeyProvider);
   return GenerativeModel(
     model: 'gemini-pro',
