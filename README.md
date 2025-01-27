@@ -2,6 +2,14 @@
 
 Google の Gemini AI を使用したシンプルなチャットアプリケーションです。
 
+## デモ
+
+
+
+https://github.com/user-attachments/assets/191845a9-c4b1-48da-ab1c-ee86a4b5385a
+
+
+
 ## 機能
 
 - Gemini AI との対話型チャット
